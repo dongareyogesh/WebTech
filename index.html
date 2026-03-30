@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>AngularJS Animated Model</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f4f6f9;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+      align-items: center;
+    }
+
+    .box {
+      width: 180px;
+      height: 120px;
+      border-radius: 10px;
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .user { background: #ff6b6b; }
+    .view { background: #4dabf7; }
+    .controller { background: #ffd43b; color: black; }
+    .model { background: #51cf66; }
+
+    input {
+      margin-top: 10px;
+      padding: 5px;
+    }
+
+    /* Animated dot */
+    .dot {
+      width: 15px;
+      height: 15px;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      animation: move 4s linear infinite;
+    }
+
+    @keyframes move {
+      0%   { left: 0%; }
+      25%  { left: 100%; }
+      50%  { left: 200%; }
+      75%  { left: 300%; }
+      100% { left: 0%; }
+    }
+
+    .flow {
+      margin-top: 40px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body ng-controller="myCtrl">
+
+<h1>🌐 AngularJS Animated Working Model</h1>
+
+<div class="container">
+
+  <div class="box user">
+    USER 👤
+    <br>
+    <input type="text" ng-model="name" placeholder="Enter name">
+  </div>
+
+  <div class="box view">
+    VIEW 🖥️
+    <br>
+    Hello {{name}}
+  </div>
+
+  <div class="box controller">
+    CONTROLLER 🎯
+    <br>
+    Handles Logic
+  </div>
+
+  <div class="box model">
+    MODEL 📦
+    <br>
+    {{name}}
+  </div>
+
+</div>
+
+<div class="dot"></div>
+
+<div class="flow">
+  🔄 Flow: User → View → Controller → Model → View (Auto Update)
+</div>
+
+<script>
+var app = angular.module("myApp", []);
+
+app.controller("myCtrl", function($scope){
+    $scope.name = "Student";
+});
+</script>
+
+</body>
+</html>
