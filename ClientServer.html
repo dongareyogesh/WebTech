@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Internet Working Model</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: #eef2f3;
+        }
+
+        h1 {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .box {
+            width: 150px;
+            height: 120px;
+            border-radius: 10px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .client { background: #3498db; }
+        .internet { background: #9b59b6; }
+        .server { background: #e74c3c; }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            background: yellow;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        button {
+            margin-top: 40px;
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>🌐 Internet Working Model (Animated)</h1>
+
+<div class="container">
+    <div class="box client">Client<br>(Browser)</div>
+    <div class="box internet">Internet<br>(WWW)</div>
+    <div class="box server">Server<br>(Web Server)</div>
+</div>
+
+<div id="msg" class="message">HTTP Request</div>
+
+<button onclick="start()">Start Simulation</button>
+
+<div id="status"></div>
+
+<script>
+
+function start() {
+
+    let msg = document.getElementById("msg");
+    let status = document.getElementById("status");
+
+    let pos = 20;
+    msg.style.display = "block";
+    msg.innerHTML = "HTTP Request";
+    msg.style.left = "20%";
+
+    status.innerHTML = "Client sends HTTP Request using HTTP protocol...";
+
+    // Move to Internet
+    let step1 = setInterval(() => {
+        if (pos >= 45) {
+            clearInterval(step1);
+
+            status.innerHTML = "Request travels through Internet (WWW)...";
+
+            // Move to Server
+            let step2 = setInterval(() => {
+                if (pos >= 70) {
+                    clearInterval(step2);
+
+                    status.innerHTML = "Server receives request & processes it...";
+
+                    setTimeout(() => {
+
+                        msg.innerHTML = "HTTP Response";
+                        status.innerHTML = "Server sends HTTP Response...";
+
+                        // Move back
+                        let step3 = setInterval(() => {
+                            if (pos <= 20) {
+                                clearInterval(step3);
+                                status.innerHTML = "Client receives response → Webpage displayed ✅";
+                            } else {
+                                pos--;
+                                msg.style.left = pos + "%";
+                            }
+                        }, 20);
+
+                    }, 1000);
+
+                } else {
+                    pos++;
+                    msg.style.left = pos + "%";
+                }
+            }, 20);
+
+        } else {
+            pos++;
+            msg.style.left = pos + "%";
+        }
+    }, 20);
+}
+
+</script>
+
+</body>
+</html>

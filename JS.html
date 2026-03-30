@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS Easy Learning Model</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background:#f4f6f9;
+            font-family: Arial;
+        }
+
+        .header {
+            background:#343a40;
+            color:white;
+            padding:15px;
+            text-align:center;
+        }
+
+        .card-box {
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            margin-top:20px;
+        }
+
+        .example {
+            background:#f1f1f1;
+            padding:10px;
+            border-left:5px solid #007bff;
+            margin-top:10px;
+        }
+
+        .output {
+            margin-top:10px;
+            padding:10px;
+            border:1px dashed #333;
+        }
+
+        button { margin:5px; }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h3>📘 CSS Simple Teaching Model</h3>
+</div>
+
+<div class="container">
+
+    <h5 id="progress" class="text-center mt-3"></h5>
+
+    <div class="card-box" id="content"></div>
+
+    <div class="text-center">
+        <button class="btn btn-secondary" onclick="prev()">Prev</button>
+        <button class="btn btn-primary" onclick="next()">Next</button>
+        <button class="btn btn-success" onclick="auto()">Auto</button>
+    </div>
+
+</div>
+
+<script>
+
+const slides = [
+
+`<h4>🌐 What is CSS?</h4>
+<p><b>Explanation:</b> CSS is used to style web pages.</p>
+
+<div class="example">
+Code: p { color: red; }
+</div>
+
+<div class="output" style="color:red;">
+Output: This text is red
+</div>`,
+
+`<h4>✨ CSS Features</h4>
+<p>✔ Separate design from HTML<br>
+✔ Reuse styles<br>
+✔ Fast loading</p>`,
+
+`<h4>📘 CSS Syntax</h4>
+
+<p><b>Format:</b> selector { property: value; }</p>
+
+<div class="example">
+p { color: blue; }
+</div>
+
+<div class="output" style="color:blue;">
+Blue text example
+</div>`,
+
+`<h4>🔗 CSS with HTML</h4>
+
+<p><b>3 Types:</b></p>
+<ul>
+<li>Inline → style=""</li>
+<li>Internal → &lt;style&gt;</li>
+<li>External → .css file</li>
+</ul>`,
+
+`<h4>⚖️ Cascading</h4>
+
+<p><b>Rule:</b> Inline > Internal > External</p>
+
+<button onclick="change('green')">External</button>
+<button onclick="change('orange')">Internal</button>
+<button onclick="change('red')">Inline</button>
+
+<div id="cascade" class="output">
+Watch color change
+</div>`,
+
+`<h4>🧬 Inheritance</h4>
+
+<div id="parent" style="color:blue;">
+Parent Text
+<div id="child">Child inherits color</div>
+</div>
+
+<button onclick="inherit()">Change Parent Color</button>`,
+
+`<h4>🧪 Text Properties</h4>
+
+<div id="text" class="output">Sample Text</div>
+
+<button onclick="color()">Color</button>
+<button onclick="size()">Size</button>
+<button onclick="align()">Align</button>
+<button onclick="bold()">Bold</button>`,
+
+`<h4>📊 Summary</h4>
+<p>
+✔ CSS styles web pages<br>
+✔ Syntax is simple<br>
+✔ Cascading decides priority<br>
+✔ Inheritance shares styles
+</p>`
+];
+
+let i = 0;
+let timer;
+
+function show(){
+    document.getElementById("content").innerHTML = slides[i];
+    document.getElementById("progress").innerText =
+        "Topic " + (i+1) + " / " + slides.length;
+}
+
+function next(){ if(i<slides.length-1)i++; show(); }
+function prev(){ if(i>0)i--; show(); }
+
+function auto(){
+    timer = setInterval(()=>{
+        if(i<slides.length-1){ i++; show(); }
+        else clearInterval(timer);
+    },4000);
+}
+
+// DEMOS
+function change(c){ document.getElementById("cascade").style.color=c; }
+function inherit(){ document.getElementById("parent").style.color="purple"; }
+function color(){ document.getElementById("text").style.color="red"; }
+function size(){ document.getElementById("text").style.fontSize="30px"; }
+function align(){ document.getElementById("text").style.textAlign="center"; }
+function bold(){ document.getElementById("text").style.fontWeight="bold"; }
+
+show();
+
+</script>
+
+</body>
+</html>
