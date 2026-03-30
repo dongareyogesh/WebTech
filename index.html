@@ -1,66 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Internet Working Model</title>
+    <title>Beautiful CSS Learning Model</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .header {
             text-align: center;
-            background: #eef2f3;
-        }
-
-        h1 {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 80px;
-        }
-
-        .box {
-            width: 150px;
-            height: 120px;
-            border-radius: 10px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
+            font-size: 24px;
             font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        .client { background: #3498db; }
-        .internet { background: #9b59b6; }
-        .server { background: #e74c3c; }
-
-        .message {
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            background: yellow;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        button {
-            margin-top: 40px;
-            padding: 10px 20px;
-            background: #27ae60;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        #status {
+        .glass {
+            backdrop-filter: blur(15px);
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
             margin-top: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            animation: slideUp 0.7s ease;
+        }
+
+        @keyframes slideUp {
+            from {opacity:0; transform:translateY(40px);}
+            to {opacity:1; transform:translateY(0);}
+        }
+
+        .controls button {
+            margin: 5px;
+            border-radius: 20px;
+        }
+
+        .highlight {
+            color: #ffd369;
             font-weight: bold;
+        }
+
+        .demo-box {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            transition: all 0.5s ease;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #ffd369;
+            transition: width 0.5s;
         }
 
     </style>
@@ -68,78 +66,123 @@
 
 <body>
 
-<h1>🌐 Internet Working Model (Animated)</h1>
+<div class="header">🎨 CSS Smart Learning Dashboard</div>
 
 <div class="container">
-    <div class="box client">Client<br>(Browser)</div>
-    <div class="box internet">Internet<br>(WWW)</div>
-    <div class="box server">Server<br>(Web Server)</div>
+
+    <div class="glass">
+        <div id="content"></div>
+        <div class="progress mt-3">
+            <div id="bar" class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="text-center controls mt-3">
+        <button class="btn btn-light" onclick="prev()">⬅ Prev</button>
+        <button class="btn btn-warning" onclick="next()">Next ➡</button>
+        <button class="btn btn-success" onclick="play()">▶ Auto</button>
+        <button class="btn btn-danger" onclick="pause()">⏸ Pause</button>
+    </div>
+
 </div>
-
-<div id="msg" class="message">HTTP Request</div>
-
-<button onclick="start()">Start Simulation</button>
-
-<div id="status"></div>
 
 <script>
 
-function start() {
+const slides = [
 
-    let msg = document.getElementById("msg");
-    let status = document.getElementById("status");
+`🌐 <span class="highlight">Introduction</span><br>
+CSS styles HTML beautifully.<br>
+Example:<br>
+<p style="color:yellow;">Styled Text</p>`,
 
-    let pos = 20;
-    msg.style.display = "block";
-    msg.innerHTML = "HTTP Request";
-    msg.style.left = "20%";
+`✨ <span class="highlight">Features</span><br>
+✔ Separation of design<br>
+✔ Reusability<br>
+✔ Fast UI<br>
+✔ Responsive layouts`,
 
-    status.innerHTML = "Client sends HTTP Request using HTTP protocol...";
+`📘 <span class="highlight">Syntax</span><br>
+selector { property: value; }<br><br>
+Example:<br>
+p { color: red; }`,
 
-    // Move to Internet
-    let step1 = setInterval(() => {
-        if (pos >= 45) {
-            clearInterval(step1);
+`🔗 <span class="highlight">CSS with HTML</span><br>
+Inline, Internal, External styles`,
 
-            status.innerHTML = "Request travels through Internet (WWW)...";
+`⚖ <span class="highlight">Cascading</span><br>
+<button onclick="cascade('green')">External</button>
+<button onclick="cascade('orange')">Internal</button>
+<button onclick="cascade('red')">Inline</button>
 
-            // Move to Server
-            let step2 = setInterval(() => {
-                if (pos >= 70) {
-                    clearInterval(step2);
+<p id="cascadeDemo">Watch color change</p>`,
 
-                    status.innerHTML = "Server receives request & processes it...";
+`🧬 <span class="highlight">Inheritance</span><br>
+<div id="parent" style="color:cyan;">
+Parent
+<div id="child">Child inherits</div>
+</div>
+<button onclick="inherit()">Change Parent</button>`,
 
-                    setTimeout(() => {
+`🧪 <span class="highlight">Text Properties Lab</span><br>
 
-                        msg.innerHTML = "HTTP Response";
-                        status.innerHTML = "Server sends HTTP Response...";
+<div id="text" class="demo-box">Beautiful Text</div>
 
-                        // Move back
-                        let step3 = setInterval(() => {
-                            if (pos <= 20) {
-                                clearInterval(step3);
-                                status.innerHTML = "Client receives response → Webpage displayed ✅";
-                            } else {
-                                pos--;
-                                msg.style.left = pos + "%";
-                            }
-                        }, 20);
+<button onclick="styleText('color')">Color</button>
+<button onclick="styleText('size')">Size</button>
+<button onclick="styleText('align')">Align</button>
+<button onclick="styleText('space')">Spacing</button>
+<button onclick="styleText('bold')">Bold</button>`,
 
-                    }, 1000);
+`🎯 <span class="highlight">Summary</span><br>
+✔ CSS controls UI<br>
+✔ Cascading = priority<br>
+✔ Inheritance = reuse<br>
+✔ Styling = better UX`
+];
 
-                } else {
-                    pos++;
-                    msg.style.left = pos + "%";
-                }
-            }, 20);
+let i = 0;
+let interval;
 
-        } else {
-            pos++;
-            msg.style.left = pos + "%";
-        }
-    }, 20);
+function show() {
+    document.getElementById("content").innerHTML = slides[i];
+    document.getElementById("bar").style.width =
+        ((i+1)/slides.length)*100 + "%";
 }
+
+function next(){ if(i<slides.length-1)i++; show(); }
+function prev(){ if(i>0)i--; show(); }
+
+function play(){
+    interval = setInterval(()=>{
+        if(i<slides.length-1){ i++; show(); }
+        else clearInterval(interval);
+    },4000);
+}
+
+function pause(){ clearInterval(interval); }
+
+// CASCADE
+function cascade(color){
+    document.getElementById("cascadeDemo").style.color = color;
+}
+
+// INHERIT
+function inherit(){
+    document.getElementById("parent").style.color = "yellow";
+}
+
+// TEXT STYLING
+function styleText(type){
+    let t = document.getElementById("text");
+
+    if(type=="color") t.style.color="yellow";
+    if(type=="size") t.style.fontSize="30px";
+    if(type=="align") t.style.textAlign="center";
+    if(type=="space") t.style.letterSpacing="5px";
+    if(type=="bold") t.style.fontWeight="bold";
+}
+
+show();
 
 </script>
 
